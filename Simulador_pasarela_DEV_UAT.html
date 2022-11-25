@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://alignet-3ds-carrito-test.s3.amazonaws.com/Simulador_pasarela_DEV_UAT.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <script src="./Simulador_pasarela_DEV_UAT_files/jquery-3.4.1.min.js.descarga"></script>
+
+<link rel="stylesheet" href="./Simulador_pasarela_DEV_UAT_files/bootstrap.min.css">
+<script src="./Simulador_pasarela_DEV_UAT_files/jquery.min.js.descarga"></script>
+<script src="./Simulador_pasarela_DEV_UAT_files/bootstrap.min.js.descarga"></script>
+<style>
+
+</style></head>
+
+
+<body>
+    <div class="container">
+      <div class="page-header" style="padding-bottom: 0px; margin: 0px 0 0; border-bottom: 1px solid #eee;">
+        
+        <img src="./Simulador_pasarela_DEV_UAT_files/comerprueba.png" class="img-rounded" alt="Cinque Terre" style="width: 303px;display: block; margin: auto;">
+		
+   </div>
+    <br>
+	<div class="form-group">
+		<div class="row" id="carritoComercio">
+			<div class="col-lg-offset-3 col-lg-6">
+				<div class="form-group">
+					<label for="sel1">Ambiente:</label>
+					<select class="form-control" id="enviroment" onchange="cargarCommerceData()">
+						<option value="https://uatalgreq.3dsecurekey.cloud/requestor/">Preproduccion</option>
+						<option value="http://localhost:8081/tds-alignet-requestor-rest/api/v2/">DEV</option>
+					</select>
+				</div>
+				<div class="form-group">
+            		  <label for="sel1">Key :</label>
+					  <input type="text" class="form-control" value="4KP375hzfEYrH2mGWEjGQ4LP4ez4mAVC" id="key">
+				</div>
+				<div class="form-group">
+				  <label for="sel1">Codigo de Comercio :</label>
+				  <input type="text" class="form-control" value="597026007992" id="accMerchantId">
+				</div>
+				<div class="form-group">
+					<label for="sel1">Correo:</label>
+					<input type="text" class="form-control" value="@gmail.com" id="correotrax">
+				  </div>
+				  <div class="form-group">
+					<label for="sel1">Telefono:</label>
+					<input type="text" class="form-control" value="51" id="prefijo">
+					<input type="text" class="form-control" value="942747379" id="numero">
+				  </div>
+				  <div class="form-group">
+					<label for="sel1">IP:</label>
+					<input type="text" class="form-control" value="1.12.123.255" id="iptrx">
+				  </div>
+				<div class="form-group">
+					<label for="sel1">DETALLE DE LA COMPRA:</label>
+					<img src="./Simulador_pasarela_DEV_UAT_files/apple.jpg" class="img-rounded" alt="Cinque Terre" style="width: 159px;display: block; margin: auto;">
+				</div>
+				<div class="form-group">
+					<div class="row col-sm-6 col-md-6 col-lg-4 col-xs-6">
+						<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">Moneda</label>
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+							<select class="form-control" id="moneda">
+								<option value="604">Soles</option>
+								<option value="840">Dolares</option>
+							</select>
+						</div>
+					</div>
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6">
+						<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">Monto</label>
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+							<input type="text" class="form-control" maxlength="5" value="350" id="monto">
+						</div>
+					</div>					
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="form-group">
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6" style="float:right;">
+						<button class="btn btn-primary" onclick="pagarConTarjeta()">Pagar con Pay-me</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" id="pagoTarjeta" style="display:none;">
+			<div class="col-lg-offset-3 col-lg-6">		
+				<br>
+				<br>
+				<img src="./Simulador_pasarela_DEV_UAT_files/pay-me-logo-300x100.png" class="img-rounded" alt="Cinque Terre" style="width: 107px;display: block; margin: auto;">			
+				<div class="form-group">
+					<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">N° Tarjeta</label>
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="padding-bottom:10px;">
+						<input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" value="4237710001319434" id="cardNumber">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6">
+						<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">Mes</label>
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+							<input type="text" class="form-control" maxlength="2" placeholder="mm" id="mesCaducidad" value="12">
+						</div>
+					</div>
+					<div class="row col-sm-6 col-md-1 col-lg-1 col-xs-6" style="padding-top:20px;">
+					</div>
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6">
+						<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">Año</label>
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+							<input type="text" class="form-control" maxlength="2" placeholder="aa" id="anoCaducidad" value="22">
+						</div>
+					</div>
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6">
+					</div>
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6">
+						<label class="col-sm-12 col-md-12 col-lg-12 col-xs-12">CVV</label>
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+							<input type="password" class="form-control" maxlength="4" placeholder="cvv" id="cvv" value="110">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row col-sm-6 col-md-6 col-lg-3 col-xs-6" style="float:right; padding-top:10px;">
+						<button class="btn btn-primary" onclick="versioning()">Pagar</button>
+					</div>
+				</div>		
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-lg-offset-1 col-lg-10">
+				<div class="form-group">
+					<div id="panelResultado" style="font-size:20px; font-style:italic; text-align:center;">
+					</div>
+				</div>
+				<iframe id="acsFrame" style="width: 100%;height: 500px; display:none;" src="./Simulador_pasarela_DEV_UAT_files/saved_resource.html"></iframe>
+			</div>
+		</div>
+	</div>
+	
+	<div id="panelVersioning" style="display:none;">
+		<h2>
+			<span class="label label-default">Envio de Mensaje Versioning </span>
+		</h2>
+		<pre id="versioning"></pre>
+		<div class="form-group">
+			<h2>
+				<span class="label label-default">Respuesta del Versioning</span>
+			</h2>
+		</div>
+		<pre id="mensajeVersioning"></pre>
+	</div>
+    <div id="panelAutentication" style="display:none;">
+		<h2>
+			<span class="label label-default">Envio de Mensaje PARQ </span>
+		</h2>
+		<pre id="parks"></pre>
+		<div class="form-group">
+			<h2>
+				<span class="label label-default">Respuesta del Primer Mensaje PARS</span>
+			</h2>
+		</div>
+		<pre id="primerMensaje"></pre>		
+	</div>
+	<div id="panelChallenge" style="display:none;">
+		<h2>
+			<span class="label label-default">Envio de Mensaje PGCQ </span>
+		</h2>
+		<pre id="segundoMensaje"></pre>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+	  function pagarConTarjeta() {
+		$("#carritoComercio").hide();
+		$("#pagoTarjeta").show();
+	  }
+
+      function versioning(){
+		$("#pagoTarjeta").hide();
+		$("#panelResultado").html("Validando versioning ....<img style='width:100px;' src='https://static.wixstatic.com/media/29220c_7dd1695378d640b89daf23e02443a780~mv2.gif'>");
+		$("#panelVersioning").show();
+		  var keyText = $('#key').val();
+		  console.log("key " + keyText) ;
+
+		  var urlEnviroment =    $("#enviroment").val()+"versioning";
+		  console.log("urlEnviroment " + urlEnviroment);
+
+		  var versioningDataJson = {};
+		  versioningDataJson["acctNumber"] = $("#cardNumber").val();
+		  versioningDataJson["acquirerMerchantID"] = $("#accMerchantId").val();//"9876543210001";
+		   var versioningDataJsonParse = JSON.stringify(versioningDataJson);
+		  console.log("Antes de enviar el versioningDataJson : " +versioningDataJsonParse );
+		  document.getElementById("versioning").innerHTML = JSON.stringify(versioningDataJson, undefined, 2);
+
+		  $.ajax({
+			  type: "POST",
+			  //url: "https://uatrequestor.3dsecurekey.cloud/tds-alignet-requestor-rest/api/v2/threeDSVersioning",
+			  url: urlEnviroment,
+			  headers: {
+				'key': keyText,
+				'Content-Type':'application/json'
+			  },
+			  data: versioningDataJsonParse,
+			  contentType: "application/json; charset=utf-8",
+			  crossDomain: true,
+			  dataType: "json",
+			  success: function (data, status, jqXHR) {
+				  var jsonString = JSON.stringify(data)
+				  var jsonConvertedData = JSON.parse(jsonString);
+
+				  if(jsonConvertedData["threeDSServerTransID"]!=null){
+					  console.log("**** : "+jsonConvertedData["threeDSServerTransID"]);
+				  }
+				  document.getElementById("mensajeVersioning").innerHTML = JSON.stringify(data, undefined, 2);
+				  
+				  if(data.versioningStatus){
+					authentication();
+				  } else {
+					$("#panelResultado").html("Error en el versioning :"+data.meta.status.message_ilgn[0].value);				  
+				  }
+			  },
+			  error: function (jqXHR, status) {
+				  console.log(jqXHR);
+				  $("#panelResultado").html('ocurrio un error en el versioning');
+				  $("#panelVersioning").hide();
+			  }
+		  });
+    }
+		
+
+    function authentication(){
+	  
+	  $("#panelResultado").html("Autenticando ... <img style='width:100px;' src='https://static.wixstatic.com/media/29220c_7dd1695378d640b89daf23e02443a780~mv2.gif'>")
+	  $("#panelVersioning").hide();
+      $("#panelAutentication").show();
+	  var urlEnviroment =    $("#enviroment").val() + "authentication";
+      console.log("urlEnviroment " + urlEnviroment) ;
+
+      var message = $('#mensajeVersioning').text();
+      var jsonConvertedData = JSON.parse(message);
+      var threeDSServerTransIDsTring = jsonConvertedData["threeDSServerTransID"];
+      console.log("threeDSServerTransIDsTring : "+threeDSServerTransIDsTring);
+
+      var datosJsonParse =   retornaJsonPe() ;
+      var authenticactionDataJsonParse = JSON.stringify(datosJsonParse);
+      console.log("Antes de enviar el authenticationDataJson : " +authenticactionDataJsonParse );
+      document.getElementById("parks").innerHTML = JSON.stringify(datosJsonParse, undefined, 2);
+
+      var keyText = $('#key').val();
+      console.log("key " + keyText) ;
+
+      var accMerchantId = $('#accMerchantId').val();
+      //var accMerchantId = '\"accMerchantId\"' ;
+      console.log("accMerchantId : " + accMerchantId) ;
+
+
+        $.ajax({
+            type: "POST",
+          //  url: "https://uatrequestor.3dsecurekey.cloud/tds-alignet-requestor-rest/api/v2/authentication",
+            url: urlEnviroment,
+            headers: {
+              'Authorization':keyText, // No transbank
+			  'key': keyText,
+              'threeDSServerTransID' : threeDSServerTransIDsTring,
+              'Content-Type':'application/json'
+            },
+            data: authenticactionDataJsonParse,
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, status, jqXHR) {
+                var jsonString = JSON.stringify(data)
+                var jsonConvertedData = JSON.parse(jsonString);
+				var transStatus = jsonConvertedData["transStatus"];
+                document.getElementById("primerMensaje").innerHTML = JSON.stringify(data, undefined, 2);
+				if(transStatus=='C'){
+                    $('#resultado').text("Transacción con challenge cargando challenge ... <img style='width:100px;' src='https://static.wixstatic.com/media/29220c_7dd1695378d640b89daf23e02443a780~mv2.gif'>");
+					//$("#panelAutentication").hide();
+					pgcq()
+                } else if(transStatus=='Y') {
+                    $('#panelResultado').text("¡Se ha autenticado de manera exitosa!");
+					setTimeout(function(){
+						//$("#panelAutentication").hide();
+					}, 5000)
+                } else {
+					$('#panelResultado').text("¡Fin de la autenticacion  transStatus = "+transStatus+"!");
+					setTimeout(function(){
+						//$("#panelAutentication").hide();
+					}, 5000)
+				}
+				if(transStatus != 'C') {
+					loadParsAsTable(jsonConvertedData);
+				}
+               
+            },
+            error: function (jqXHR, status) {
+                console.log(jqXHR);
+                $("#panelResultado").html('Ocurrio un error en la autenticacion - fail ' + status.code);
+				//$("#panelAutentication").hide();
+            }
+        });
+    }
+
+    function pgcq(){
+		//$("#panelAutentication").hide();
+		$("#panelChallenge").show();
+        var urlEnviroment =    $("#enviroment").val() + "authentication";
+        var message = $('#primerMensaje').text();
+        var jsonConvertedData = JSON.parse(message);
+        var pgcqData = {};
+        pgcqData["threeDSServerTransID"] = jsonConvertedData["threeDSServerTransID"];
+        pgcqData["acsTransID"] = jsonConvertedData["acsTransID"];
+        pgcqData["messageType"] = "Pgcq";
+        pgcqData["messageVersion"] = "2.1.0";
+		var challengeWindowSize = $("#challengeWindowSize").val()
+		if(challengeWindowSize != "") {
+			pgcqData["challengeWindowSize"] = challengeWindowSize;
+		}
+        console.log("Antes de enviar el pgcq" +JSON.stringify(pgcqData) );
+
+        document.getElementById("segundoMensaje").innerHTML = JSON.stringify(pgcqData, undefined, 2);
+
+        var keyText = $('#key').val();
+        console.log("key " + keyText) ;
+
+        $.ajax({
+            type: "POST",
+            url: urlEnviroment,
+            headers: {
+			  'Authorization':keyText, // No transbank
+              'key': keyText,
+              'Content-Type':'application/json'
+            },
+            data: JSON.stringify(pgcqData),
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType:"text",
+            success: function (data, status, jqXHR) {
+                console.log("Exitoso");
+                console.log(data);
+				//$("#panelResultado").html("Por favor ingresar el codigo enviado a su celular/email")
+				$("#panelResultado").html("Challenge OTP")
+                $("#acsFrame").show();
+				var myFrame = $("#acsFrame").contents().find('body');
+                myFrame.html(data);
+				$("#panelChallenge").hide();
+			},
+            error: function (jqXHR, status) {
+                console.log("Que mierda paso "+ status);
+                console.log(jqXHR);
+                alert('fail ' + status.code);
+            }
+        });
+
+    }
+	
+	function loadParsAsTable(parsObject){
+		$("#acsFrame").show();
+		var myFrame = $("#acsFrame").contents().find('body');
+		myFrame.append("<h3>RESPUESTA FINAL: </H3>")
+		var fields = ["threeDSServerTransID", "acsTransID", "messageType", "messageVersion", "transStatus", "eci", "vci", "authenticationValue"]
+		var tableHtml = "<table border='1'>";
+		for(var i=0; i<fields.length; i++){
+			if(parsObject[fields[i]]) {
+				tableHtml = tableHtml + "<tr><td>"+fields[i]+"</td><td>"+parsObject[fields[i]]+"</td></tr>";
+			}			
+		}
+		tableHtml = tableHtml + "</table>";
+		myFrame.append(tableHtml);
+	}
+
+    function retornaJsonPe(){
+
+
+
+        var pgcqData = {};
+
+    //    pgcqData["threeDSServerTransID"] = jsonConvertedData["threeDSServerTransID"];
+    //      pgcqData["acsTransID"] = jsonConvertedData["acsTransID"];
+
+            pgcqData["messageType"] = "pArq";
+            pgcqData["acctNumber"] = $("#cardNumber").val();
+            pgcqData["cardExpiryDate"] = $("#anoCaducidad").val()+$("#mesCaducidad").val();
+            pgcqData["deviceChannel"] = "02";
+            pgcqData["messageCategory"] = "01";
+            pgcqData["messageVersion"] = "2.1.0";
+            pgcqData["threeDSRequestorAuthenticationInd"] = "01";
+			pgcqData["threeDSRequestorChallengeInd"] = $("#threeDSRequestorChallengeInd").val();// "04";
+			
+            pgcqData["acquirerBIN"] = "212327";
+            pgcqData["acquirerMerchantID"] = $('#accMerchantId').val(); //"597026007992";
+            pgcqData["cardholderName"] = "Challenge One";
+			pgcqData["purchaseNumber"] = "100010";
+            pgcqData["purchaseAmount"] = $("#monto").val();
+            pgcqData["purchaseCurrency"] = $("#moneda").val();
+            pgcqData["purchaseExponent"] = "2";
+            pgcqData["purchaseDate"] = "20190523061226";
+			pgcqData["notificationURL"] = "https://multimarca.3dsecurekey.cloud/3dss-requestor-rest/api/v2/demo_response_cres_rreq", //"http://localhost:8081/tds-alignet-requestor-rest/api/v2/response";
+			pgcqData["email"] = $("#correotrax").val();
+			pgcqData["mobilePhone"] = {"cc":$("#prefijo").val(), "subscriber":$("#numero").val()};
+            pgcqData["browserAcceptHeader"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+            pgcqData["browserIP"] = $("#iptrx").val();
+            pgcqData["browserJavaEnabled"] = "true";
+            pgcqData["browserLanguage"] = "en";
+            pgcqData["browserColorDepth"] = "32";
+            pgcqData["browserScreenHeight"] = "1920";
+            pgcqData["browserScreenWidth"] = "1080";
+
+            pgcqData["browserTZ"] = "0";
+            pgcqData["browserUserAgent"] = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0";
+
+            var parsJsonPrro = JSON.stringify(pgcqData) ;
+
+
+            console.log("parse : " + parsJsonPrro);
+
+
+            return pgcqData ;
+
+//            console.log("Antes de enviar el pgcq" +JSON.stringify(pgcqData) );
+
+
+    }
+	function b64_to_utf8( str ) {
+		return decodeURIComponent(escape(window.atob( str )));
+	}
+	function cargarCommerceData(){
+		var enviromentName = $("#enviroment option:selected").text();
+		var accMerchantId = enviromentCommerce[enviromentName]["commerce"];
+		$("#accMerchantId").val(accMerchantId);
+		var keyValue = enviromentCommerce[enviromentName]["key"];
+		$("#key").val(keyValue);
+	}
+	
+	var enviromentCommerce = {
+		"Preproduccion":{
+			"commerce":"65459878",//"M00215",
+			"key":"U9JBeDx8hAyie94Gtfxygz7szU36DjTL"//"NCOno3be1tjkPywc.lLp2G8JU4HjOvr4Y6ZHLx8h02OqIfXaiMKtkkg2Rzb4gTchIjrneN2IpTYPUvRsk"//"IZ5RsD9g3J8eZQh6.EMScmwBjI3AlgT8VbZ690OjtPeqvXwQGbmkztxmPu7P10Q4u4098To9MHbOcjXaO"//"RlbEqHnGw4zMTZNqw8lsN4po0TF6kHOa"
+		},
+		"DEV":{
+			"commerce":"597026007992",
+			"key":"4KP375hzfEYrH2mGWEjGQ4LP4ez4mAVC"
+		}
+	}
+	cargarCommerceData();
+</script>
+
+</body></html>
